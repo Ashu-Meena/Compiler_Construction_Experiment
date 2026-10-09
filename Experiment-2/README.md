@@ -17,8 +17,10 @@ To write and execute a C++ program to identify whether a given assembly language
 5. Terminate the program.
 
 ## Program Code
-See [`macro_definition.cpp`](./macro_definition.cpp):
+* **C++ Version:** [`macro_definition.cpp`](./macro_definition.cpp) (Use with C++ / G++ compiler)
+* **Standard C Version:** [`macro_definition.c`](./macro_definition.c) (Use with C or C++ compiler)
 
+### C++ (`macro_definition.cpp`):
 ```cpp
 #include <iostream>
 #include <string>

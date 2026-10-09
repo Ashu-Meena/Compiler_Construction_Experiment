@@ -53,6 +53,16 @@
       font-size: 14px;
       margin-bottom: 20px;
     }
+    .warning-box {
+      background: rgba(210, 153, 34, 0.15);
+      border: 1px solid #d29922;
+      color: #e3b341;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
     h1 {
       color: var(--heading);
       font-size: 24px;
@@ -60,8 +70,29 @@
     }
     p {
       color: #8b949e;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       line-height: 1.6;
+    }
+    .lang-tabs {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .lang-tab {
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: #21262d;
+      color: #8b949e;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .lang-tab.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
     }
     .btn-group {
       display: flex;
@@ -122,12 +153,21 @@
     </div>
     <h1 id="titleText">Experiment Code Ready</h1>
     <p id="descText">
-      The source code has been automatically copied to your clipboard. You can paste it (<kbd>Ctrl+V</kbd>) into the online compiler.
+      The source code has been automatically copied. Press <kbd>Ctrl+V</kbd> in the compiler and click Run.
     </p>
+
+    <div class="lang-tabs" id="langTabs" style="display: none;">
+      <button class="lang-tab active" id="tabCpp">C++ Version (&lt;iostream&gt;)</button>
+      <button class="lang-tab" id="tabC">C Version (&lt;stdio.h&gt;)</button>
+    </div>
+
+    <div id="compilerWarning" class="warning-box" style="display: none;">
+      💡 <strong>Tip:</strong> If using a C compiler (like <code>onecompiler.com/c</code>), use the <strong>C Version</strong> to prevent <code>iostream: No such file</code> error!
+    </div>
 
     <div class="btn-group">
       <a id="compilerBtn" href="#" target="_blank" class="btn btn-primary">
-        🚀 Open Compiler in New Tab
+        🚀 Open Matching Compiler in New Tab
       </a>
       <button id="copyAgainBtn" class="btn btn-secondary">
         📋 Copy Again
@@ -143,10 +183,13 @@
   <script>
     const EXPERIMENTS = {
       1: {
-        title: "Experiment 1: Fibonacci Series in C++",
-        compilerGDB: "https://www.onlinegdb.com/online_c++_compiler",
-        compilerOne: "https://onecompiler.com/cpp",
-        code: `#include <iostream>
+        title: "Experiment 1: Fibonacci Series",
+        hasVersions: true,
+        compilerGDB_cpp: "https://www.onlinegdb.com/online_c++_compiler",
+        compilerOne_cpp: "https://onecompiler.com/cpp",
+        compilerGDB_c: "https://www.onlinegdb.com/online_c_compiler",
+        compilerOne_c: "https://onecompiler.com/c",
+        codeCpp: `#include <iostream>
 using namespace std;
 
 int main() {
@@ -166,13 +209,37 @@ int main() {
     }
 
     return 0;
+}`,
+        codeC: `#include <stdio.h>
+
+int main() {
+    int n, a = 0, b = 1, c, i;
+
+    printf("Enter number of terms: ");
+    if (scanf("%d", &n) != 1) return 0;
+
+    printf("Fibonacci series: ");
+
+    for (i = 1; i <= n; i++) {
+        printf("%d ", a);
+
+        c = a + b;
+        a = b;
+        b = c;
+    }
+
+    printf("\\n");
+    return 0;
 }`
       },
       2: {
-        title: "Experiment 2: Macro Definition Identification in C++",
-        compilerGDB: "https://www.onlinegdb.com/online_c++_compiler",
-        compilerOne: "https://onecompiler.com/cpp",
-        code: `#include <iostream>
+        title: "Experiment 2: Macro Definition Identification",
+        hasVersions: true,
+        compilerGDB_cpp: "https://www.onlinegdb.com/online_c++_compiler",
+        compilerOne_cpp: "https://onecompiler.com/cpp",
+        compilerGDB_c: "https://www.onlinegdb.com/online_c_compiler",
+        compilerOne_c: "https://onecompiler.com/c",
+        codeCpp: `#include <iostream>
 #include <string>
 using namespace std;
 
@@ -189,32 +256,48 @@ int main() {
     }
 
     return 0;
+}`,
+        codeC: `#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s[200];
+
+    printf("Enter assembly instruction: ");
+    if (fgets(s, sizeof(s), stdin) == NULL) return 0;
+
+    if (strstr(s, "MACRO") != NULL) {
+        printf("It is a macro definition\\n");
+    } else {
+        printf("It is not a macro definition\\n");
+    }
+
+    return 0;
 }`
       },
       3: {
         title: "Experiment 3: Lexical Analysis of C Source Code",
+        hasVersions: false,
         compilerGDB: "https://www.onlinegdb.com/online_c_compiler",
         compilerOne: "https://onecompiler.com/c",
         code: `#include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 
-char *keywords[] = {
+const char *keywords[] = {
     "int", "float", "char", "double",
     "if", "else", "for", "while",
     "return", "void", "break", "continue"
 };
 
-int isKeyword(char *word)
+int isKeyword(const char *word)
 {
     int i;
-
     for (i = 0; i < 12; i++)
     {
         if (strcmp(word, keywords[i]) == 0)
             return 1;
     }
-
     return 0;
 }
 
@@ -231,18 +314,16 @@ int main()
     int i = 0;
 
     printf("Enter C source code: ");
-    fgets(str, sizeof(str), stdin);
+    if (fgets(str, sizeof(str), stdin) == NULL) return 0;
 
-    while (str[i] != '\0')
+    while (str[i] != '\\0')
     {
-        /* Ignore spaces and newline */
         if (isspace(str[i]))
         {
             i++;
             continue;
         }
 
-        /* Identifier or keyword */
         if (isalpha(str[i]) || str[i] == '_')
         {
             char word[50];
@@ -252,16 +333,13 @@ int main()
             {
                 word[j++] = str[i++];
             }
-
-            word[j] = '\0';
+            word[j] = '\\0';
 
             if (isKeyword(word))
                 printf("%s -> Keyword\\n", word);
             else
                 printf("%s -> Identifier\\n", word);
         }
-
-        /* Constant */
         else if (isdigit(str[i]))
         {
             char number[50];
@@ -271,20 +349,15 @@ int main()
             {
                 number[j++] = str[i++];
             }
-
-            number[j] = '\0';
+            number[j] = '\\0';
 
             printf("%s -> Constant\\n", number);
         }
-
-        /* Operator */
         else if (isOperator(str[i]))
         {
             printf("%c -> Operator\\n", str[i]);
             i++;
         }
-
-        /* Special symbol */
         else
         {
             printf("%c -> Special Symbol\\n", str[i]);
@@ -297,6 +370,7 @@ int main()
       },
       4: {
         title: "Experiment 4: Construction of a Parse Tree in C",
+        hasVersions: false,
         compilerGDB: "https://www.onlinegdb.com/online_c_compiler",
         compilerOne: "https://onecompiler.com/c",
         code: `#include <stdio.h>
@@ -312,13 +386,10 @@ struct Node
 struct Node *createNode(char data)
 {
     struct Node *newNode;
-
     newNode = (struct Node *)malloc(sizeof(struct Node));
-
     newNode->data = data;
     newNode->left = NULL;
     newNode->right = NULL;
-
     return newNode;
 }
 
@@ -347,24 +418,19 @@ int main()
     struct Node *root;
 
     root = createNode('=');
-
     root->left = createNode('a');
-
     root->right = createNode('+');
     root->right->left = createNode('b');
-
     root->right->right = createNode('*');
     root->right->right->left = createNode('c');
     root->right->right->right = createNode('d');
 
     printf("Inorder Traversal: ");
     inorder(root);
-
     printf("\\n");
 
     printf("Preorder Traversal: ");
     preorder(root);
-
     printf("\\n");
 
     return 0;
@@ -372,6 +438,7 @@ int main()
       },
       5: {
         title: "Experiment 5: Source Code Optimization",
+        hasVersions: false,
         compilerGDB: "https://www.onlinegdb.com/online_c_compiler",
         compilerOne: "https://onecompiler.com/c",
         code: `#include <stdio.h>
@@ -382,7 +449,7 @@ int main()
     char expression[100];
 
     printf("Enter expression: ");
-    fgets(expression, sizeof(expression), stdin);
+    if (fgets(expression, sizeof(expression), stdin) == NULL) return 0;
 
     if (strstr(expression, "* 2") != NULL)
     {
@@ -400,6 +467,7 @@ int main()
       },
       6: {
         title: "Experiment 6: MiniLang High-Level Language",
+        hasVersions: false,
         compilerGDB: "https://www.onlinegdb.com/online_c_compiler",
         compilerOne: "https://onecompiler.com/c",
         code: `#include <stdio.h>
@@ -408,36 +476,27 @@ int main()
 
 #define MAX 500
 
-char keywords[][10] = {
-    "int", "if", "else", "while"
-};
+char keywords[][10] = { "int", "if", "else", "while" };
 
 int isKeyword(char word[])
 {
     int i;
     for (i = 0; i < 4; i++)
     {
-        if (strcmp(word, keywords[i]) == 0)
-            return 1;
+        if (strcmp(word, keywords[i]) == 0) return 1;
     }
     return 0;
 }
 
 int isDelimiter(char ch)
 {
-    return (ch == '(' || ch == ')' ||
-            ch == '{' || ch == '}' ||
-            ch == ';');
+    return (ch == '(' || ch == ')' || ch == '{' || ch == '}' || ch == ';');
 }
 
 int isOperatorStart(char ch)
 {
-    return (ch == '+' || ch == '-' ||
-            ch == '*' || ch == '/' ||
-            ch == '%' || ch == '<' ||
-            ch == '>' || ch == '=' ||
-            ch == '!' || ch == '&' ||
-            ch == '|');
+    return (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '%' ||
+            ch == '<' || ch == '>' || ch == '=' || ch == '!' || ch == '&' || ch == '|');
 }
 
 void lexicalAnalysis(char input[])
@@ -448,71 +507,36 @@ void lexicalAnalysis(char input[])
     printf("\\n----- LEXICAL ANALYSIS -----\\n");
     while (input[i] != '\\0')
     {
-        /* Ignore white spaces */
-        if (isspace(input[i]))
-        {
-            i++;
-            continue;
-        }
+        if (isspace(input[i])) { i++; continue; }
 
-        /* Identifier or Keyword */
         if (isalpha(input[i]) || input[i] == '_')
         {
             int j = 0;
-            while (isalnum(input[i]) || input[i] == '_')
-            {
-                token[j++] = input[i++];
-            }
+            while (isalnum(input[i]) || input[i] == '_') token[j++] = input[i++];
             token[j] = '\\0';
-
-            if (isKeyword(token))
-                printf("%-15s : KEYWORD\\n", token);
-            else
-                printf("%-15s : IDENTIFIER\\n", token);
+            printf("%-15s : %s\\n", token, isKeyword(token) ? "KEYWORD" : "IDENTIFIER");
         }
-        /* Number */
         else if (isdigit(input[i]))
         {
             int j = 0;
-            while (isdigit(input[i]))
-            {
-                token[j++] = input[i++];
-            }
+            while (isdigit(input[i])) token[j++] = input[i++];
             token[j] = '\\0';
             printf("%-15s : CONSTANT\\n", token);
         }
-        /* Delimiter */
         else if (isDelimiter(input[i]))
         {
-            printf("%-15c : DELIMITER\\n", input[i]);
-            i++;
+            printf("%-15c : DELIMITER\\n", input[i++]);
         }
-        /* Operators */
         else if (isOperatorStart(input[i]))
         {
-            char op[3];
-            op[0] = input[i];
-            op[1] = '\\0';
-
-            if ((input[i] == '<' || input[i] == '>' ||
-                 input[i] == '=' || input[i] == '!') &&
-                input[i + 1] == '=')
+            char op[3] = { input[i], '\\0', '\\0' };
+            if ((input[i] == '<' || input[i] == '>' || input[i] == '=' || input[i] == '!') && input[i+1] == '=')
             {
-                op[1] = '=';
-                op[2] = '\\0';
-                i += 2;
+                op[1] = '='; i += 2;
             }
-            else if (input[i] == '&' && input[i + 1] == '&')
+            else if ((input[i] == '&' && input[i+1] == '&') || (input[i] == '|' && input[i+1] == '|'))
             {
-                op[1] = '&';
-                op[2] = '\\0';
-                i += 2;
-            }
-            else if (input[i] == '|' && input[i + 1] == '|')
-            {
-                op[1] = '|';
-                op[2] = '\\0';
-                i += 2;
+                op[1] = input[i]; i += 2;
             }
             else
             {
@@ -522,65 +546,27 @@ void lexicalAnalysis(char input[])
         }
         else
         {
-            printf("%-15c : UNKNOWN SYMBOL\\n", input[i]);
-            i++;
+            printf("%-15c : UNKNOWN SYMBOL\\n", input[i++]);
         }
     }
 }
 
 void syntaxCheck(char input[])
 {
-    int i = 0;
-    int braces = 0;
-    int parentheses = 0;
-    int errors = 0;
-
+    int i = 0, braces = 0, parentheses = 0, errors = 0;
     printf("\\n----- SYNTAX CHECK -----\\n");
     while (input[i] != '\\0')
     {
-        if (input[i] == '{')
-            braces++;
-        else if (input[i] == '}')
-        {
-            braces--;
-            if (braces < 0)
-            {
-                printf("Error: Unexpected '}'\\n");
-                errors++;
-                braces = 0;
-            }
-        }
-        else if (input[i] == '(')
-            parentheses++;
-        else if (input[i] == ')')
-        {
-            parentheses--;
-            if (parentheses < 0)
-            {
-                printf("Error: Unexpected ')'\\n");
-                errors++;
-                parentheses = 0;
-            }
-        }
+        if (input[i] == '{') braces++;
+        else if (input[i] == '}') { braces--; if (braces < 0) { printf("Error: Unexpected '}'\\n"); errors++; braces = 0; } }
+        else if (input[i] == '(') parentheses++;
+        else if (input[i] == ')') { parentheses--; if (parentheses < 0) { printf("Error: Unexpected ')'\\n"); errors++; parentheses = 0; } }
         i++;
     }
-
-    if (braces != 0)
-    {
-        printf("Error: Unbalanced braces {}\\n");
-        errors++;
-    }
-
-    if (parentheses != 0)
-    {
-        printf("Error: Unbalanced parentheses ()\\n");
-        errors++;
-    }
-
-    if (errors == 0)
-        printf("Syntax structure is valid.\\n");
-    else
-        printf("Syntax errors detected.\\n");
+    if (braces != 0) { printf("Error: Unbalanced braces {}\\n"); errors++; }
+    if (parentheses != 0) { printf("Error: Unbalanced parentheses ()\\n"); errors++; }
+    if (errors == 0) printf("Syntax structure is valid.\\n");
+    else printf("Syntax errors detected.\\n");
 }
 
 int main()
@@ -598,8 +584,7 @@ int main()
     while (position < MAX - 1)
     {
         ch = getchar();
-        if (ch == '#')
-            break;
+        if (ch == '#') break;
         input[position++] = ch;
     }
     input[position] = '\\0';
@@ -607,7 +592,6 @@ int main()
     if (position == 0)
     {
         printf("\\nNo MiniLang program was entered.\\n");
-        printf("Please enter at least one valid statement.\\n");
         return 0;
     }
 
@@ -617,12 +601,12 @@ int main()
     printf("\\n============================================\\n");
     printf("               END OF PROGRAM\\n");
     printf("============================================\\n");
-
     return 0;
 }`
       },
       7: {
         title: "Experiment 7: Lexical Analyzer Using LEX",
+        hasVersions: false,
         compilerGDB: "https://www.onlinegdb.com/online_c_compiler",
         compilerOne: "https://onecompiler.com/",
         code: `%{
@@ -668,33 +652,68 @@ int main()
     printf("Enter C program (Ctrl+D to finish):\\n");
     yylex();
     return 0;
-}
-`
+}`
       }
     };
 
     const urlParams = new URLSearchParams(window.location.search);
     const expId = parseInt(urlParams.get('exp')) || 1;
     const compilerChoice = urlParams.get('target') || 'onlinegdb';
+    let currentLang = urlParams.get('lang') || 'c'; // Default to C for universal compatibility!
 
     const currentExp = EXPERIMENTS[expId] || EXPERIMENTS[1];
-    const targetUrl = compilerChoice === 'onecompiler' ? currentExp.compilerOne : currentExp.compilerGDB;
-
     document.getElementById('titleText').innerText = currentExp.title;
-    document.getElementById('codeDisplay').innerText = currentExp.code;
-    const compilerBtn = document.getElementById('compilerBtn');
-    compilerBtn.href = targetUrl;
-    compilerBtn.innerText = compilerChoice === 'onecompiler' ? '🚀 Open OneCompiler' : '🚀 Open OnlineGDB';
 
-    function copyCode() {
-      navigator.clipboard.writeText(currentExp.code).then(() => {
+    const langTabs = document.getElementById('langTabs');
+    const warningBox = document.getElementById('compilerWarning');
+    const tabCpp = document.getElementById('tabCpp');
+    const tabC = document.getElementById('tabC');
+
+    if (currentExp.hasVersions) {
+      langTabs.style.display = 'flex';
+      warningBox.style.display = 'block';
+
+      tabCpp.addEventListener('click', () => {
+        currentLang = 'cpp';
+        tabCpp.classList.add('active');
+        tabC.classList.remove('active');
+        updateView();
+      });
+
+      tabC.addEventListener('click', () => {
+        currentLang = 'c';
+        tabC.classList.add('active');
+        tabCpp.classList.remove('active');
+        updateView();
+      });
+    }
+
+    function getActiveCode() {
+      if (currentExp.hasVersions) {
+        return currentLang === 'cpp' ? currentExp.codeCpp : currentExp.codeC;
+      }
+      return currentExp.code;
+    }
+
+    function getTargetUrl() {
+      if (currentExp.hasVersions) {
+        if (currentLang === 'cpp') {
+          return compilerChoice === 'onecompiler' ? currentExp.compilerOne_cpp : currentExp.compilerGDB_cpp;
+        } else {
+          return compilerChoice === 'onecompiler' ? currentExp.compilerOne_c : currentExp.compilerGDB_c;
+        }
+      }
+      return compilerChoice === 'onecompiler' ? currentExp.compilerOne : currentExp.compilerGDB;
+    }
+
+    function copyCode(code) {
+      navigator.clipboard.writeText(code).then(() => {
         const badge = document.getElementById('statusBadge');
         badge.style.display = 'inline-flex';
         badge.innerHTML = '<span>✓</span> Code Copied to Clipboard!';
       }).catch(() => {
-        // Fallback
         const textarea = document.createElement('textarea');
-        textarea.value = currentExp.code;
+        textarea.value = code;
         document.body.appendChild(textarea);
         textarea.select();
         document.execCommand('copy');
@@ -702,18 +721,23 @@ int main()
       });
     }
 
-    // Auto copy immediately upon opening
-    copyCode();
+    function updateView() {
+      const activeCode = getActiveCode();
+      const targetUrl = getTargetUrl();
+      document.getElementById('codeDisplay').innerText = activeCode;
+      const compilerBtn = document.getElementById('compilerBtn');
+      compilerBtn.href = targetUrl;
+      const langName = currentExp.hasVersions ? (currentLang === 'cpp' ? 'C++' : 'C') : 'C';
+      compilerBtn.innerText = compilerChoice === 'onecompiler' ? `🚀 Open OneCompiler (${langName})` : `🚀 Open OnlineGDB (${langName})`;
+      copyCode(activeCode);
+    }
+
+    updateView();
 
     document.getElementById('copyAgainBtn').addEventListener('click', () => {
-      copyCode();
+      copyCode(getActiveCode());
       alert('Code copied to clipboard! Paste with Ctrl+V into the compiler.');
     });
-
-    // Automatically trigger opening compiler if autoplay parameter is present
-    if (urlParams.get('open') === 'true') {
-      window.open(targetUrl, '_blank');
-    }
   </script>
 </body>
 </html>

@@ -19,8 +19,10 @@ To write and execute a C++ program to generate and display the Fibonacci series 
 5. Terminate the program.
 
 ## Program Code
-See [`fibonacci.cpp`](./fibonacci.cpp):
+* **C++ Version:** [`fibonacci.cpp`](./fibonacci.cpp) (Use with C++ / G++ compiler)
+* **Standard C Version:** [`fibonacci.c`](./fibonacci.c) (Use with C or C++ compiler)
 
+### C++ (`fibonacci.cpp`):
 ```cpp
 #include <iostream>
 using namespace std;

@@ -2,13 +2,13 @@
 #include <string.h>
 #include <ctype.h>
 
-char *keywords[] = {
+const char *keywords[] = {
     "int", "float", "char", "double",
     "if", "else", "for", "while",
     "return", "void", "break", "continue"
 };
 
-int isKeyword(char *word)
+int isKeyword(const char *word)
 {
     int i;
 
