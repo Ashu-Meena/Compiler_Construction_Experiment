@@ -10,6 +10,7 @@ Welcome to the **Compiler Construction Lab** repository. This repository contain
 | :---: | :--- | :---: | :---: | :---: |
 | **01** | Fibonacci Series Generation in C++ | [fibonacci.cpp](./Experiment-1/fibonacci.cpp) | [README.md](./Experiment-1/README.md) | [![Run](https://img.shields.io/badge/Run-OnlineGDB-3498db?style=flat-square&logo=c%2B%2B)](https://www.onlinegdb.com/online_c++_compiler) |
 | **02** | Macro Definition Identification in C++ | [macro_definition.cpp](./Experiment-2/macro_definition.cpp) | [README.md](./Experiment-2/README.md) | [![Run](https://img.shields.io/badge/Run-OnlineGDB-3498db?style=flat-square&logo=c%2B%2B)](https://www.onlinegdb.com/online_c++_compiler) |
+| **03** | Lexical Analysis of C Source Code | [lexical_analysis.c](./Experiment-3/lexical_analysis.c) | [README.md](./Experiment-3/README.md) | [![Run](https://img.shields.io/badge/Run-OnlineGDB-3498db?style=flat-square&logo=c)](https://www.onlinegdb.com/online_c_compiler) |
 
 ---
 
