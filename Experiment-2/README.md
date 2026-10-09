@@ -1,8 +1,7 @@
 # Experiment 2: Macro Definition Identification in C++
 
-[![Run on OneCompiler (Auto-Copy)](https://img.shields.io/badge/Run_Code_(Auto--Copy)-OneCompiler-2ecc71?style=for-the-badge&logo=c%2B%2B)](https://ashu-meena.github.io/Compiler_Construction_Experiment/run.html?exp=2&target=onecompiler)
-[![Run on OnlineGDB (Auto-Copy)](https://img.shields.io/badge/Run_Code_(Auto--Copy)-OnlineGDB-3498db?style=for-the-badge&logo=c%2B%2B)](https://ashu-meena.github.io/Compiler_Construction_Experiment/run.html?exp=2&target=onlinegdb)
-[![Interactive Web Portal](https://img.shields.io/badge/Web_Portal-All_Exps-6f42c1?style=for-the-badge&logo=github)](https://ashu-meena.github.io/Compiler_Construction_Experiment/)
+[![Run on OneCompiler](https://img.shields.io/badge/Run_Code-OneCompiler-2ecc71?style=for-the-badge&logo=c%2B%2B)](https://onecompiler.com/cpp)
+[![Run on OnlineGDB](https://img.shields.io/badge/Run_Code-OnlineGDB-3498db?style=for-the-badge&logo=c%2B%2B)](https://www.onlinegdb.com/online_c++_compiler)
 
 ## Aim
 To write and execute a C++ program to identify whether a given assembly language instruction is a Macro Definition or not.
@@ -17,10 +16,8 @@ To write and execute a C++ program to identify whether a given assembly language
 5. Terminate the program.
 
 ## Program Code
-* **C++ Version:** [`macro_definition.cpp`](./macro_definition.cpp) (Use with C++ / G++ compiler)
-* **Standard C Version:** [`macro_definition.c`](./macro_definition.c) (Use with C or C++ compiler)
+See [`macro_definition.cpp`](./macro_definition.cpp):
 
-### C++ (`macro_definition.cpp`):
 ```cpp
 #include <iostream>
 #include <string>

@@ -2,29 +2,28 @@
 
 Welcome to the **Compiler Construction Lab** repository. This repository contains laboratory experiments and source code implementations for academic submission and practical evaluation.
 
-[![Launch Interactive Web Portal](https://img.shields.io/badge/Launch-Interactive_Web_Portal-6f42c1?style=for-the-badge&logo=github)](https://ashu-meena.github.io/Compiler_Construction_Experiment/)
-
 ---
 
 ## 📑 Lab Experiments Index
 
-| Exp No. | Experiment Title | Source Code | Documentation | Auto-Copy & Run Online |
+| Exp No. | Experiment Title | Source Code | Documentation | Run Online |
 | :---: | :--- | :---: | :---: | :---: |
-| **01** | Fibonacci Series Generation in C++ | [fibonacci.cpp](./Experiment-1/fibonacci.cpp) | [README.md](./Experiment-1/README.md) | [![Run](https://img.shields.io/badge/Run_(Auto--Copy)-OnlineGDB-3498db?style=flat-square&logo=c%2B%2B)](https://ashu-meena.github.io/Compiler_Construction_Experiment/run.html?exp=1&target=onlinegdb) |
-| **02** | Macro Definition Identification in C++ | [macro_definition.cpp](./Experiment-2/macro_definition.cpp) | [README.md](./Experiment-2/README.md) | [![Run](https://img.shields.io/badge/Run_(Auto--Copy)-OnlineGDB-3498db?style=flat-square&logo=c%2B%2B)](https://ashu-meena.github.io/Compiler_Construction_Experiment/run.html?exp=2&target=onlinegdb) |
-| **03** | Lexical Analysis of C Source Code | [lexical_analysis.c](./Experiment-3/lexical_analysis.c) | [README.md](./Experiment-3/README.md) | [![Run](https://img.shields.io/badge/Run_(Auto--Copy)-OnlineGDB-3498db?style=flat-square&logo=c)](https://ashu-meena.github.io/Compiler_Construction_Experiment/run.html?exp=3&target=onlinegdb) |
-| **04** | Construction of a Parse Tree for an Arithmetic Statement | [parse_tree.c](./Experiment-4/parse_tree.c) | [README.md](./Experiment-4/README.md) | [![Run](https://img.shields.io/badge/Run_(Auto--Copy)-OnlineGDB-3498db?style=flat-square&logo=c)](https://ashu-meena.github.io/Compiler_Construction_Experiment/run.html?exp=4&target=onlinegdb) |
-| **05** | Source Code Optimization (Strength, Dead Code, Loop Motion) | [optimization.c](./Experiment-5/optimization.c) | [README.md](./Experiment-5/README.md) | [![Run](https://img.shields.io/badge/Run_(Auto--Copy)-OnlineGDB-3498db?style=flat-square&logo=c)](https://ashu-meena.github.io/Compiler_Construction_Experiment/run.html?exp=5&target=onlinegdb) |
-| **06** | Design of a Simple High-Level Language (MiniLang) | [minilang.c](./Experiment-6/minilang.c) | [README.md](./Experiment-6/README.md) | [![Run](https://img.shields.io/badge/Run_(Auto--Copy)-OnlineGDB-3498db?style=flat-square&logo=c)](https://ashu-meena.github.io/Compiler_Construction_Experiment/run.html?exp=6&target=onlinegdb) |
-| **07** | Lexical Analyzer Using LEX / FLEX | [lexer.l](./Experiment-7/lexer.l) | [README.md](./Experiment-7/README.md) | [![Run](https://img.shields.io/badge/Run_(Auto--Copy)-OnlineGDB-3498db?style=flat-square&logo=c)](https://ashu-meena.github.io/Compiler_Construction_Experiment/run.html?exp=7&target=onlinegdb) |
+| **01** | Fibonacci Series Generation in C++ | [fibonacci.cpp](./Experiment-1/fibonacci.cpp) | [README.md](./Experiment-1/README.md) | [![Run](https://img.shields.io/badge/Run-OnlineGDB-3498db?style=flat-square&logo=c%2B%2B)](https://www.onlinegdb.com/online_c++_compiler) |
+| **02** | Macro Definition Identification in C++ | [macro_definition.cpp](./Experiment-2/macro_definition.cpp) | [README.md](./Experiment-2/README.md) | [![Run](https://img.shields.io/badge/Run-OnlineGDB-3498db?style=flat-square&logo=c%2B%2B)](https://www.onlinegdb.com/online_c++_compiler) |
+| **03** | Lexical Analysis of C Source Code | [lexical_analysis.c](./Experiment-3/lexical_analysis.c) | [README.md](./Experiment-3/README.md) | [![Run](https://img.shields.io/badge/Run-OnlineGDB-3498db?style=flat-square&logo=c)](https://www.onlinegdb.com/online_c_compiler) |
+| **04** | Construction of a Parse Tree for an Arithmetic Statement | [parse_tree.c](./Experiment-4/parse_tree.c) | [README.md](./Experiment-4/README.md) | [![Run](https://img.shields.io/badge/Run-OnlineGDB-3498db?style=flat-square&logo=c)](https://www.onlinegdb.com/online_c_compiler) |
+| **05** | Source Code Optimization (Strength, Dead Code, Loop Motion) | [optimization.c](./Experiment-5/optimization.c) | [README.md](./Experiment-5/README.md) | [![Run](https://img.shields.io/badge/Run-OnlineGDB-3498db?style=flat-square&logo=c)](https://www.onlinegdb.com/online_c_compiler) |
+| **06** | Design of a Simple High-Level Language (MiniLang) | [minilang.c](./Experiment-6/minilang.c) | [README.md](./Experiment-6/README.md) | [![Run](https://img.shields.io/badge/Run-OnlineGDB-3498db?style=flat-square&logo=c)](https://www.onlinegdb.com/online_c_compiler) |
+| **07** | Lexical Analyzer Using LEX / FLEX | [lexer.l](./Experiment-7/lexer.l) | [README.md](./Experiment-7/README.md) | [![Flex](https://img.shields.io/badge/Flex-Linux/WSL-orange?style=flat-square&logo=linux)](#) |
 
 ---
 
 ## 🚀 How to Run in Browser
 
-Click any **Run (Auto-Copy)** button in the table above or open the **[Interactive Web Portal](https://ashu-meena.github.io/Compiler_Construction_Experiment/)**.
-The source code will be **automatically copied to your clipboard**, and the online compiler will open in a new tab so you can simply press <kbd>Ctrl+V</kbd> and run!
-3. Click **Run** and enter your desired number of terms in the input console.
+If your faculty wants to test the code without downloading or installing compilers:
+1. Click the **[Run](https://www.onlinegdb.com/online_c++_compiler)** button for the experiment.
+2. Copy the source code from the experiment folder and paste it into the editor.
+3. Click **Run**.
 
 ---
 

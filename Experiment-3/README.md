@@ -1,8 +1,7 @@
 # Experiment 3: Lexical Analysis of C Source Code
 
-[![Run on OneCompiler (Auto-Copy)](https://img.shields.io/badge/Run_Code_(Auto--Copy)-OneCompiler-2ecc71?style=for-the-badge&logo=c)](https://ashu-meena.github.io/Compiler_Construction_Experiment/run.html?exp=3&target=onecompiler)
-[![Run on OnlineGDB (Auto-Copy)](https://img.shields.io/badge/Run_Code_(Auto--Copy)-OnlineGDB-3498db?style=for-the-badge&logo=c)](https://ashu-meena.github.io/Compiler_Construction_Experiment/run.html?exp=3&target=onlinegdb)
-[![Interactive Web Portal](https://img.shields.io/badge/Web_Portal-All_Exps-6f42c1?style=for-the-badge&logo=github)](https://ashu-meena.github.io/Compiler_Construction_Experiment/)
+[![Run on OneCompiler](https://img.shields.io/badge/Run_Code-OneCompiler-2ecc71?style=for-the-badge&logo=c)](https://onecompiler.com/c)
+[![Run on OnlineGDB](https://img.shields.io/badge/Run_Code-OnlineGDB-3498db?style=for-the-badge&logo=c)](https://www.onlinegdb.com/online_c_compiler)
 
 ## Aim
 To implement a lexical analyzer in C to identify tokens (keywords, identifiers, constants, operators, and special symbols) from given C source code.

@@ -1,8 +1,6 @@
 # Experiment 7: Lexical Analyzer Using LEX / FLEX
 
-[![Run on OneCompiler (Auto-Copy)](https://img.shields.io/badge/Run_Code_(Auto--Copy)-OneCompiler-2ecc71?style=for-the-badge&logo=c)](https://ashu-meena.github.io/Compiler_Construction_Experiment/run.html?exp=7&target=onecompiler)
-[![Run on OnlineGDB (Auto-Copy)](https://img.shields.io/badge/Run_Code_(Auto--Copy)-OnlineGDB-3498db?style=for-the-badge&logo=c)](https://ashu-meena.github.io/Compiler_Construction_Experiment/run.html?exp=7&target=onlinegdb)
-[![Interactive Web Portal](https://img.shields.io/badge/Web_Portal-All_Exps-6f42c1?style=for-the-badge&logo=github)](https://ashu-meena.github.io/Compiler_Construction_Experiment/)
+[![Flex on Linux/WSL](https://img.shields.io/badge/Environment-Flex%20%2F%20GCC-orange?style=for-the-badge&logo=linux)](#)
 
 **Course Outcome:** CO3
 
