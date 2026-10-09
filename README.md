@@ -12,6 +12,9 @@ Welcome to the **Compiler Construction Lab** repository. This repository contain
 | **02** | Macro Definition Identification in C++ | [macro_definition.cpp](./Experiment-2/macro_definition.cpp) | [README.md](./Experiment-2/README.md) | [![Run](https://img.shields.io/badge/Run-OnlineGDB-3498db?style=flat-square&logo=c%2B%2B)](https://www.onlinegdb.com/online_c++_compiler) |
 | **03** | Lexical Analysis of C Source Code | [lexical_analysis.c](./Experiment-3/lexical_analysis.c) | [README.md](./Experiment-3/README.md) | [![Run](https://img.shields.io/badge/Run-OnlineGDB-3498db?style=flat-square&logo=c)](https://www.onlinegdb.com/online_c_compiler) |
 | **04** | Construction of a Parse Tree for an Arithmetic Statement | [parse_tree.c](./Experiment-4/parse_tree.c) | [README.md](./Experiment-4/README.md) | [![Run](https://img.shields.io/badge/Run-OnlineGDB-3498db?style=flat-square&logo=c)](https://www.onlinegdb.com/online_c_compiler) |
+| **05** | Source Code Optimization (Strength, Dead Code, Loop Motion) | [optimization.c](./Experiment-5/optimization.c) | [README.md](./Experiment-5/README.md) | [![Run](https://img.shields.io/badge/Run-OnlineGDB-3498db?style=flat-square&logo=c)](https://www.onlinegdb.com/online_c_compiler) |
+| **06** | Design of a Simple High-Level Language (MiniLang) | [minilang.c](./Experiment-6/minilang.c) | [README.md](./Experiment-6/README.md) | [![Run](https://img.shields.io/badge/Run-OnlineGDB-3498db?style=flat-square&logo=c)](https://www.onlinegdb.com/online_c_compiler) |
+| **07** | Lexical Analyzer Using LEX / FLEX | [lexer.l](./Experiment-7/lexer.l) | [README.md](./Experiment-7/README.md) | [![Run](https://img.shields.io/badge/Flex-Linux/WSL-orange?style=flat-square&logo=linux)](#) |
 
 ---
 
