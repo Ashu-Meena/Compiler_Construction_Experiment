@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opening Compiler & Copying Code...</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --heading: #f0f6fc;
+      --primary: #238636;
+      --primary-hover: #2ea043;
+      --accent: #58a6ff;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      max-width: 650px;
+      width: 100%;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      text-align: center;
+    }
+    .badge-success {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(35, 134, 54, 0.2);
+      border: 1px solid var(--primary);
+      color: #3fb950;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      color: var(--heading);
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+    p {
+      color: #8b949e;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background-color: #21262d;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background-color: #30363d;
+      color: var(--heading);
+    }
+    .code-preview {
+      background: #090d13;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: left;
+      max-height: 220px;
+      overflow-y: auto;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 13px;
+      color: #e6edf3;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div id="statusBadge" class="badge-success">
+      <span>✓</span> Code Copied to Clipboard!
+    </div>
+    <h1 id="titleText">Experiment Code Ready</h1>
+    <p id="descText">
+      The source code has been automatically copied to your clipboard. You can paste it (<kbd>Ctrl+V</kbd>) into the online compiler.
+    </p>
+
+    <div class="btn-group">
+      <a id="compilerBtn" href="#" target="_blank" class="btn btn-primary">
+        🚀 Open Compiler in New Tab
+      </a>
+      <button id="copyAgainBtn" class="btn btn-secondary">
+        📋 Copy Again
+      </button>
+      <a href="./index.html" class="btn btn-secondary">
+        🏠 All Experiments
+      </a>
+    </div>
+
+    <div class="code-preview" id="codeDisplay"></div>
+  </div>
+
+  <script>
+    const EXPERIMENTS = {
+      1: {
+        title: "Experiment 1: Fibonacci Series in C++",
+        compilerGDB: "https://www.onlinegdb.com/online_c++_compiler",
+        compilerOne: "https://onecompiler.com/cpp",
+        code: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n, a = 0, b = 1, c;
+
+    cout << "Enter number of terms: ";
+    cin >> n;
+
+    cout << "Fibonacci series: ";
+
+    for (int i = 1; i <= n; i++) {
+        cout << a << " ";
+
+        c = a + b;
+        a = b;
+        b = c;
+    }
+
+    return 0;
+}`
+      },
+      2: {
+        title: "Experiment 2: Macro Definition Identification in C++",
+        compilerGDB: "https://www.onlinegdb.com/online_c++_compiler",
+        compilerOne: "https://onecompiler.com/cpp",
+        code: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string s;
+
+    cout << "Enter assembly instruction: ";
+    getline(cin, s);
+
+    if (s.find("MACRO") != string::npos) {
+        cout << "It is a macro definition" << endl;
+    } else {
+        cout << "It is not a macro definition" << endl;
+    }
+
+    return 0;
+}`
+      },
+      3: {
+        title: "Experiment 3: Lexical Analysis of C Source Code",
+        compilerGDB: "https://www.onlinegdb.com/online_c_compiler",
+        compilerOne: "https://onecompiler.com/c",
+        code: `#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+char *keywords[] = {
+    "int", "float", "char", "double",
+    "if", "else", "for", "while",
+    "return", "void", "break", "continue"
+};
+
+int isKeyword(char *word)
+{
+    int i;
+
+    for (i = 0; i < 12; i++)
+    {
+        if (strcmp(word, keywords[i]) == 0)
+            return 1;
+    }
+
+    return 0;
+}
+
+int isOperator(char ch)
+{
+    return (ch == '+' || ch == '-' || ch == '*' ||
+            ch == '/' || ch == '=' || ch == '<' ||
+            ch == '>' || ch == '%');
+}
+
+int main()
+{
+    char str[500];
+    int i = 0;
+
+    printf("Enter C source code: ");
+    fgets(str, sizeof(str), stdin);
+
+    while (str[i] != '\0')
+    {
+        /* Ignore spaces and newline */
+        if (isspace(str[i]))
+        {
+            i++;
+            continue;
+        }
+
+        /* Identifier or keyword */
+        if (isalpha(str[i]) || str[i] == '_')
+        {
+            char word[50];
+            int j = 0;
+
+            while (isalnum(str[i]) || str[i] == '_')
+            {
+                word[j++] = str[i++];
+            }
+
+            word[j] = '\0';
+
+            if (isKeyword(word))
+                printf("%s -> Keyword\\n", word);
+            else
+                printf("%s -> Identifier\\n", word);
+        }
+
+        /* Constant */
+        else if (isdigit(str[i]))
+        {
+            char number[50];
+            int j = 0;
+
+            while (isdigit(str[i]))
+            {
+                number[j++] = str[i++];
+            }
+
+            number[j] = '\0';
+
+            printf("%s -> Constant\\n", number);
+        }
+
+        /* Operator */
+        else if (isOperator(str[i]))
+        {
+            printf("%c -> Operator\\n", str[i]);
+            i++;
+        }
+
+        /* Special symbol */
+        else
+        {
+            printf("%c -> Special Symbol\\n", str[i]);
+            i++;
+        }
+    }
+
+    return 0;
+}`
+      },
+      4: {
+        title: "Experiment 4: Construction of a Parse Tree in C",
+        compilerGDB: "https://www.onlinegdb.com/online_c_compiler",
+        compilerOne: "https://onecompiler.com/c",
+        code: `#include <stdio.h>
+#include <stdlib.h>
+
+struct Node
+{
+    char data;
+    struct Node *left;
+    struct Node *right;
+};
+
+struct Node *createNode(char data)
+{
+    struct Node *newNode;
+
+    newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+
+    return newNode;
+}
+
+void inorder(struct Node *root)
+{
+    if (root != NULL)
+    {
+        inorder(root->left);
+        printf("%c", root->data);
+        inorder(root->right);
+    }
+}
+
+void preorder(struct Node *root)
+{
+    if (root != NULL)
+    {
+        printf("%c", root->data);
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+
+int main()
+{
+    struct Node *root;
+
+    root = createNode('=');
+
+    root->left = createNode('a');
+
+    root->right = createNode('+');
+    root->right->left = createNode('b');
+
+    root->right->right = createNode('*');
+    root->right->right->left = createNode('c');
+    root->right->right->right = createNode('d');
+
+    printf("Inorder Traversal: ");
+    inorder(root);
+
+    printf("\\n");
+
+    printf("Preorder Traversal: ");
+    preorder(root);
+
+    printf("\\n");
+
+    return 0;
+}`
+      },
+      5: {
+        title: "Experiment 5: Source Code Optimization",
+        compilerGDB: "https://www.onlinegdb.com/online_c_compiler",
+        compilerOne: "https://onecompiler.com/c",
+        code: `#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char expression[100];
+
+    printf("Enter expression: ");
+    fgets(expression, sizeof(expression), stdin);
+
+    if (strstr(expression, "* 2") != NULL)
+    {
+        printf("\\nOptimized expression:\\n");
+        printf("Replace multiplication by 2 with addition.\\n");
+        printf("x = i + i\\n");
+    }
+    else
+    {
+        printf("\\nNo strength reduction applicable.\\n");
+    }
+
+    return 0;
+}`
+      },
+      6: {
+        title: "Experiment 6: MiniLang High-Level Language",
+        compilerGDB: "https://www.onlinegdb.com/online_c_compiler",
+        compilerOne: "https://onecompiler.com/c",
+        code: `#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+#define MAX 500
+
+char keywords[][10] = {
+    "int", "if", "else", "while"
+};
+
+int isKeyword(char word[])
+{
+    int i;
+    for (i = 0; i < 4; i++)
+    {
+        if (strcmp(word, keywords[i]) == 0)
+            return 1;
+    }
+    return 0;
+}
+
+int isDelimiter(char ch)
+{
+    return (ch == '(' || ch == ')' ||
+            ch == '{' || ch == '}' ||
+            ch == ';');
+}
+
+int isOperatorStart(char ch)
+{
+    return (ch == '+' || ch == '-' ||
+            ch == '*' || ch == '/' ||
+            ch == '%' || ch == '<' ||
+            ch == '>' || ch == '=' ||
+            ch == '!' || ch == '&' ||
+            ch == '|');
+}
+
+void lexicalAnalysis(char input[])
+{
+    int i = 0;
+    char token[MAX];
+
+    printf("\\n----- LEXICAL ANALYSIS -----\\n");
+    while (input[i] != '\\0')
+    {
+        /* Ignore white spaces */
+        if (isspace(input[i]))
+        {
+            i++;
+            continue;
+        }
+
+        /* Identifier or Keyword */
+        if (isalpha(input[i]) || input[i] == '_')
+        {
+            int j = 0;
+            while (isalnum(input[i]) || input[i] == '_')
+            {
+                token[j++] = input[i++];
+            }
+            token[j] = '\\0';
+
+            if (isKeyword(token))
+                printf("%-15s : KEYWORD\\n", token);
+            else
+                printf("%-15s : IDENTIFIER\\n", token);
+        }
+        /* Number */
+        else if (isdigit(input[i]))
+        {
+            int j = 0;
+            while (isdigit(input[i]))
+            {
+                token[j++] = input[i++];
+            }
+            token[j] = '\\0';
+            printf("%-15s : CONSTANT\\n", token);
+        }
+        /* Delimiter */
+        else if (isDelimiter(input[i]))
+        {
+            printf("%-15c : DELIMITER\\n", input[i]);
+            i++;
+        }
+        /* Operators */
+        else if (isOperatorStart(input[i]))
+        {
+            char op[3];
+            op[0] = input[i];
+            op[1] = '\\0';
+
+            if ((input[i] == '<' || input[i] == '>' ||
+                 input[i] == '=' || input[i] == '!') &&
+                input[i + 1] == '=')
+            {
+                op[1] = '=';
+                op[2] = '\\0';
+                i += 2;
+            }
+            else if (input[i] == '&' && input[i + 1] == '&')
+            {
+                op[1] = '&';
+                op[2] = '\\0';
+                i += 2;
+            }
+            else if (input[i] == '|' && input[i + 1] == '|')
+            {
+                op[1] = '|';
+                op[2] = '\\0';
+                i += 2;
+            }
+            else
+            {
+                i++;
+            }
+            printf("%-15s : OPERATOR\\n", op);
+        }
+        else
+        {
+            printf("%-15c : UNKNOWN SYMBOL\\n", input[i]);
+            i++;
+        }
+    }
+}
+
+void syntaxCheck(char input[])
+{
+    int i = 0;
+    int braces = 0;
+    int parentheses = 0;
+    int errors = 0;
+
+    printf("\\n----- SYNTAX CHECK -----\\n");
+    while (input[i] != '\\0')
+    {
+        if (input[i] == '{')
+            braces++;
+        else if (input[i] == '}')
+        {
+            braces--;
+            if (braces < 0)
+            {
+                printf("Error: Unexpected '}'\\n");
+                errors++;
+                braces = 0;
+            }
+        }
+        else if (input[i] == '(')
+            parentheses++;
+        else if (input[i] == ')')
+        {
+            parentheses--;
+            if (parentheses < 0)
+            {
+                printf("Error: Unexpected ')'\\n");
+                errors++;
+                parentheses = 0;
+            }
+        }
+        i++;
+    }
+
+    if (braces != 0)
+    {
+        printf("Error: Unbalanced braces {}\\n");
+        errors++;
+    }
+
+    if (parentheses != 0)
+    {
+        printf("Error: Unbalanced parentheses ()\\n");
+        errors++;
+    }
+
+    if (errors == 0)
+        printf("Syntax structure is valid.\\n");
+    else
+        printf("Syntax errors detected.\\n");
+}
+
+int main()
+{
+    char input[MAX];
+    int position = 0;
+    char ch;
+
+    printf("============================================\\n");
+    printf("         MINILANG IMPLEMENTATION\\n");
+    printf("============================================\\n");
+    printf("\\nEnter MiniLang program.\\n");
+    printf("Enter # on a new line to finish.\\n\\n");
+
+    while (position < MAX - 1)
+    {
+        ch = getchar();
+        if (ch == '#')
+            break;
+        input[position++] = ch;
+    }
+    input[position] = '\\0';
+
+    if (position == 0)
+    {
+        printf("\\nNo MiniLang program was entered.\\n");
+        printf("Please enter at least one valid statement.\\n");
+        return 0;
+    }
+
+    lexicalAnalysis(input);
+    syntaxCheck(input);
+
+    printf("\\n============================================\\n");
+    printf("               END OF PROGRAM\\n");
+    printf("============================================\\n");
+
+    return 0;
+}`
+      },
+      7: {
+        title: "Experiment 7: Lexical Analyzer Using LEX",
+        compilerGDB: "https://www.onlinegdb.com/online_c_compiler",
+        compilerOne: "https://onecompiler.com/",
+        code: `%{
+#include <stdio.h>
+%}
+
+%option noyywrap
+
+%%
+"int"|"float"|"char"|"double"|"if"|"else"|"while"|"for"|"return" {
+    printf("%s -> KEYWORD\\n", yytext);
+}
+
+[0-9]+ {
+    printf("%s -> NUMBER\\n", yytext);
+}
+
+[a-zA-Z_][a-zA-Z0-9_]* {
+    printf("%s -> IDENTIFIER\\n", yytext);
+}
+
+"=="|"!="|"<="|">="|"&&"|"||"|"++"|"--" {
+    printf("%s -> OPERATOR\\n", yytext);
+}
+
+[+\\-*/%=<>] {
+    printf("%s -> OPERATOR\\n", yytext);
+}
+
+[{}();,\\[\\]] {
+    printf("%s -> SPECIAL SYMBOL\\n", yytext);
+}
+
+[ \\t\\n]+ { /* Ignore whitespace */ }
+
+. {
+    printf("%s -> UNKNOWN\\n", yytext);
+}
+%%
+
+int main()
+{
+    printf("Enter C program (Ctrl+D to finish):\\n");
+    yylex();
+    return 0;
+}
+`
+      }
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const expId = parseInt(urlParams.get('exp')) || 1;
+    const compilerChoice = urlParams.get('target') || 'onlinegdb';
+
+    const currentExp = EXPERIMENTS[expId] || EXPERIMENTS[1];
+    const targetUrl = compilerChoice === 'onecompiler' ? currentExp.compilerOne : currentExp.compilerGDB;
+
+    document.getElementById('titleText').innerText = currentExp.title;
+    document.getElementById('codeDisplay').innerText = currentExp.code;
+    const compilerBtn = document.getElementById('compilerBtn');
+    compilerBtn.href = targetUrl;
+    compilerBtn.innerText = compilerChoice === 'onecompiler' ? '🚀 Open OneCompiler' : '🚀 Open OnlineGDB';
+
+    function copyCode() {
+      navigator.clipboard.writeText(currentExp.code).then(() => {
+        const badge = document.getElementById('statusBadge');
+        badge.style.display = 'inline-flex';
+        badge.innerHTML = '<span>✓</span> Code Copied to Clipboard!';
+      }).catch(() => {
+        // Fallback
+        const textarea = document.createElement('textarea');
+        textarea.value = currentExp.code;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      });
+    }
+
+    // Auto copy immediately upon opening
+    copyCode();
+
+    document.getElementById('copyAgainBtn').addEventListener('click', () => {
+      copyCode();
+      alert('Code copied to clipboard! Paste with Ctrl+V into the compiler.');
+    });
+
+    // Automatically trigger opening compiler if autoplay parameter is present
+    if (urlParams.get('open') === 'true') {
+      window.open(targetUrl, '_blank');
+    }
+  </script>
+</body>
+</html>

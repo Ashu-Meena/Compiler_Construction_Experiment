@@ -1,7 +1,8 @@
 # Experiment 2: Macro Definition Identification in C++
 
-[![Run on OneCompiler](https://img.shields.io/badge/Run_Code-OneCompiler-2ecc71?style=for-the-badge&logo=c%2B%2B)](https://onecompiler.com/cpp)
-[![Run on OnlineGDB](https://img.shields.io/badge/Run_Code-OnlineGDB-3498db?style=for-the-badge&logo=c%2B%2B)](https://www.onlinegdb.com/online_c++_compiler)
+[![Run on OneCompiler (Auto-Copy)](https://img.shields.io/badge/Run_Code_(Auto--Copy)-OneCompiler-2ecc71?style=for-the-badge&logo=c%2B%2B)](https://ashu-meena.github.io/Compiler_Construction_Experiment/run.html?exp=2&target=onecompiler)
+[![Run on OnlineGDB (Auto-Copy)](https://img.shields.io/badge/Run_Code_(Auto--Copy)-OnlineGDB-3498db?style=for-the-badge&logo=c%2B%2B)](https://ashu-meena.github.io/Compiler_Construction_Experiment/run.html?exp=2&target=onlinegdb)
+[![Interactive Web Portal](https://img.shields.io/badge/Web_Portal-All_Exps-6f42c1?style=for-the-badge&logo=github)](https://ashu-meena.github.io/Compiler_Construction_Experiment/)
 
 ## Aim
 To write and execute a C++ program to identify whether a given assembly language instruction is a Macro Definition or not.
